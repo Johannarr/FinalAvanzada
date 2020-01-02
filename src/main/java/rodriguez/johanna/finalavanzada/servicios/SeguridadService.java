@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
-public class SeguridadService {
+public class SeguridadService implements UserDetailsService {
 
     @Autowired
     private UsuarioRepositorio usuarioRepo;
@@ -52,7 +53,7 @@ public class SeguridadService {
     }
 
     // se necesita implementar este metodo cuando se implementa user details service
-   //@Override
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Usuario user = usuarioRepo.findByUsername(username);

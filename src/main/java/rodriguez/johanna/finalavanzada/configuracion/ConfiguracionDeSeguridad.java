@@ -32,9 +32,9 @@ public class ConfiguracionDeSeguridad extends WebSecurityConfigurerAdapter { // 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
         //Configuracion y carga de usuarios metodo JPA agregando nuestro usuario a BD
-        //auth
-              //  .userDetailsService(seguridadService)
-               // .passwordEncoder(bCryptPasswordEncoder);
+        auth
+                .userDetailsService(seguridadService)
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 
     //Reglas para especificar las rutas a las que podra acceder los usuarios
@@ -51,9 +51,9 @@ public class ConfiguracionDeSeguridad extends WebSecurityConfigurerAdapter { // 
                 // Rol admin y user podran entrar
                 .antMatchers("/usuario/**").hasAnyRole("ADMIN")
                 .antMatchers("/cliente/**").hasAnyRole("ADMIN", "USER")
-                .antMatchers("//**").hasAnyRole("ADMIN", "USER")
-                .antMatchers("//**").hasAnyRole("ADMIN", "USER")
-                .antMatchers("//**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/equipo/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/familia/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/alquiler/**").hasAnyRole("ADMIN", "USER")
                 // .anyRequest().authenticated() //cualquier llamada debe ser validada
                 .and()
                 .formLogin()

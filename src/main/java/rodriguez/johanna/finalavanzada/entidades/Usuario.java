@@ -3,6 +3,8 @@ package rodriguez.johanna.finalavanzada.entidades;
 import javax.persistence.*;
 import java.util.Set;
 
+
+@Entity
 public class Usuario {
 
     @Id
