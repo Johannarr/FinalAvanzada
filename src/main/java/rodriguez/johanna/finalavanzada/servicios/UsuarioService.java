@@ -38,6 +38,10 @@ public class UsuarioService {
         return usuarioRepo.findUsuarioById(id);
     }
 
+    public Usuario encontrarUsuarioPorUsername(String username){
+
+        return usuarioRepo.findByUsername(username);
+    }
 
     public void eliminarUsuario(long id){
 

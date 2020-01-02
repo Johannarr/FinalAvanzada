@@ -2,19 +2,20 @@ package rodriguez.johanna.finalavanzada.controladores;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import com.sendgrid.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import rodriguez.johanna.finalavanzada.entidades.Plan;
 import rodriguez.johanna.finalavanzada.entidades.Rol;
 import rodriguez.johanna.finalavanzada.entidades.Usuario;
 import rodriguez.johanna.finalavanzada.servicios.ClienteService;
 import rodriguez.johanna.finalavanzada.servicios.PlanService;
 import rodriguez.johanna.finalavanzada.servicios.UsuarioService;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.*;
 
@@ -76,7 +77,7 @@ public class UsuarioController {
 
 
     @RequestMapping( value = "/crear", method = RequestMethod.POST)
-    public String crearUsuario(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password, @RequestParam(name = "idRoles") long idRoles ){
+    public String crearUsuario(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password, @RequestParam(name = "idRoles") long idRoles )throws IOException{
 
         // Mando el id para que me busque el rol creado
         Rol rolCreated = usuarioService.encontrarRolPorId(idRoles);
@@ -94,6 +95,7 @@ public class UsuarioController {
 
         // Inserto cliente
         usuarioService.crearUsuario(usuarioToCreate);
+        CreatedMail(username);
 
         return "redirect:/usuario/";
     }
@@ -106,4 +108,30 @@ public class UsuarioController {
         return "redirect:/usuario/";
     }
 
+    public void CreatedMail(@RequestParam(name = "username") String username) throws IOException {
+
+        String correo = username;
+        Email from = new Email("ej-multimedia@info.com");
+        Email to = new Email(correo); // use your own email address here
+
+        String subject = "Welcome To E&J MULTIMEDIA CXA";
+        Content content = new Content("text/html", "Bienvenido a la Multimedia E&J su usuario es: " +username+ ". Que cuenta con una contraseña encriptada." +
+                "Click aquí para volver al sistema.");
+
+
+        Mail mail = new Mail(from, subject, to, content);
+        System.out.println(mail);
+        SendGrid sg = new SendGrid("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");
+        Request request = new Request();
+
+        request.setMethod(Method.POST);
+        request.setEndpoint("mail/send");
+        request.setBody(mail.build());
+
+        Response response = sg.api(request);
+
+        System.out.println(response.getStatusCode());
+        System.out.println(response.getHeaders());
+        System.out.println(response.getBody());
+    }
 }
