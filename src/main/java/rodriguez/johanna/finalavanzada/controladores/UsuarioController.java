@@ -121,7 +121,7 @@ public class UsuarioController {
 
         Mail mail = new Mail(from, subject, to, content);
         System.out.println(mail);
-        SendGrid sg = new SendGrid("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");
+        SendGrid sg = new SendGrid((System.getenv("SENDGRID_API_KEY")););
         Request request = new Request();
 
         request.setMethod(Method.POST);
