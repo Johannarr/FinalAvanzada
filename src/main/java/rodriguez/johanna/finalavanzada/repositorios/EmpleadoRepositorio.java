@@ -7,5 +7,5 @@ import rodriguez.johanna.finalavanzada.entidades.Empleado;
 @Repository
 public interface EmpleadoRepositorio extends JpaRepository <Empleado, Long> {
 
-    Empleado findEmpleadosById (long id);
+    Empleado findEmpleadoById (long id);
 }
