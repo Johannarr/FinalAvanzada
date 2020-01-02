@@ -21,10 +21,10 @@ public class IndexController {
 
         seguridadService.crearUsuarioAdmin();
 
-        model.addAttribute("titulo", "E&J CXA");
+        model.addAttribute("titulo", "MULTIMEDIA CXA");
 
         //Aqui redirecciono hacia cliente, realiza la creacion pero es invisibl al usuario
-        return "redirect:/cliente/";
+        return "redirect:/usuario/";
     }
 
     //Aqui manejo indico el login de mi aplicacion y trabajo en conjunto con la configuracion de seguridad

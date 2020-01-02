@@ -17,6 +17,7 @@ import rodriguez.johanna.finalavanzada.repositorios.UsuarioRepositorio;
 import javax.transaction.Transactional;
 import java.util.*;
 
+
 @Service
 public class SeguridadService implements UserDetailsService {
 
