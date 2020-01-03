@@ -15,18 +15,13 @@ public class Paquete implements Serializable {
 
     private int total;
 
-    // Relacion uno a mucho
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private Cliente cliente;
-
     // Relacion mucho a mucho
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Plan> planes;
 
 
-    public Paquete(Cliente cliente, List<Plan> planes, int total) {
+    public Paquete(List<Plan> planes, int total) {
 
-        this.cliente = cliente;
         this.planes = planes;
         this.total = total;
     }
@@ -41,14 +36,6 @@ public class Paquete implements Serializable {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
     }
 
     public List<Plan> getPlanes() {
