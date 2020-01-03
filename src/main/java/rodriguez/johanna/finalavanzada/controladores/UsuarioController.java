@@ -93,7 +93,7 @@ public class UsuarioController {
 
         usuarioToCreate.setActive(true);
 
-        // Inserto cliente
+        // Inserto usuario
         usuarioService.crearUsuario(usuarioToCreate);
         CreatedMail(username);
 
@@ -121,7 +121,7 @@ public class UsuarioController {
 
         Mail mail = new Mail(from, subject, to, content);
         System.out.println(mail);
-        SendGrid sg = new SendGrid((System.getenv("SENDGRID_API_KEY")););
+        SendGrid sg = new SendGrid (System.getenv("SENDGRID_API_KEY"));
         Request request = new Request();
 
         request.setMethod(Method.POST);

@@ -35,12 +35,15 @@ public class SeguridadService implements UserDetailsService {
     public void crearUsuarioAdmin(){
         //creo los roles
 
-        Rol rolUser = new Rol();
-        rolUser.setRole("ROLE_USER");
-        rolRepositorio.save(rolUser);
+        Rol rolClient = new Rol();
+        rolClient.setRole("ROLE_CLIENT");
+        rolRepositorio.save(rolClient);
 
         Rol rolAdmin = new Rol("ROLE_ADMIN");
         rolRepositorio.save(rolAdmin);
+
+        Rol rolEmpleado = new Rol("ROLE_EMPLEADO");
+        rolRepositorio.save(rolEmpleado);
 
         Usuario usuarioAdmin = new Usuario();
         usuarioAdmin.setUsername("admin");

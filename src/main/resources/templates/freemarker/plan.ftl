@@ -73,6 +73,7 @@
 
                                 <p>
 
+                                    ${usuario}
                                     <!--Aqui agrego el nombre del usuario logueado -->
                                 </p>
                             </li>
@@ -154,10 +155,9 @@
         <section class="content-header">
             <h1 class="text-center">
 
-                <strong>${listausuarioi18n}</strong>
+                <strong>${listaplani18n}</strong>
             </h1>
-            <a class="btn btn-primary" href="/usuario/creacion" role="button">${agregarusuarioi18n}</a>
-            <a class="btn btn-success" href="/usuario/default" role="button">Default creator</a>
+            <a class="btn btn-primary" href="/plan/creacion" role="button">${agregarplani18n}</a>
         </section>
 
         <!-- Main content -->
@@ -172,22 +172,22 @@
                         <table class="table table-striped table-bordered table-condensed table-hover">
                             <thead>
 
-                            <th>${nombreusuarioi18n}</th>
-                            <th>${activousuarioi18n}</th>
+                            <th>${nombreplani18n}</th>
+                            <th>${costoplani18n}</th>
                             <th>${opcionei18n}</th>
                             </thead>
 
-                            <#list usuarios as usuario>
+                            <#list planes as plan>
 
                             <tr>
                                 <!-- Para los campos esAdmin y active es necesario poner un ?c para representar
                                  estos campos en el index ya que estos campos son boolean y a la hora de presentarlos
                                  da error, ?c lo que hace es transformar estos boolean a un String "true" y false
                                  solo para ser presentados aqui-->
-                                <td>${usuario.username}</td>
-                                <td>${usuario.active?c}</td>
+                                <td>${plan.nombre}</td>
+                                <td>${plan.costo}</td>
                                 <td>
-                                    <a href="/usuario/borrar/?id=${usuario.id}"  data-toggle="modal"> <i class="fa fa-trash" style="font-size:23px;color:red"></i> </a>
+                                    <a href="/plan/borrar/?id=${plan.id}"  data-toggle="modal"> <i class="fa fa-trash" style="font-size:23px;color:red"></i> </a>
                                 </td>
                             </tr>
                             </#list>

@@ -49,8 +49,8 @@ public class ConfiguracionDeSeguridad extends WebSecurityConfigurerAdapter { // 
                 .antMatchers("/dbconsole/**").permitAll()
 
                 // Rol admin y user podran entrar
-                .antMatchers("/usuario/**").hasAnyRole("ADMIN","USER")
-                .antMatchers("/cliente/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/usuario/**").hasAnyRole("ADMIN","EMPLEADO")
+                .antMatchers("/cliente/**").hasAnyRole("ADMIN", "CLI")
                 .antMatchers("/equipo/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/familia/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/alquiler/**").hasAnyRole("ADMIN", "USER")
