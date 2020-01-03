@@ -95,7 +95,7 @@ public class UsuarioController {
 
         // Inserto usuario
         usuarioService.crearUsuario(usuarioToCreate);
-    //    CreatedMail(username); //Call Mail Method
+        CreatedMail(username);
 
         return "redirect:/usuario/";
     }

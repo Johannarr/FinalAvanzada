@@ -1,6 +1,8 @@
 package rodriguez.johanna.finalavanzada.entidades;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
@@ -8,38 +10,25 @@ public class Plan implements Serializable {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     private String nombre;
-    private String descripcion;
-    private float precio;
+    private int costo;
 
-    @Enumerated(EnumType.STRING)
-    private TipoPlan tipoPlan;
 
-    public Plan(String nombre, String descripcion, float precio, TipoPlan tipoPlan) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.tipoPlan = tipoPlan;
+    public Plan(String nombre, int costo) {
+        this.nombre=nombre;
+        this.costo=costo;
     }
 
     public Plan() {
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -51,19 +40,11 @@ public class Plan implements Serializable {
         this.nombre = nombre;
     }
 
-    public float getPrecio() {
-        return precio;
+    public int getCosto() {
+        return costo;
     }
 
-    public void setPrecio(float precio) {
-        this.precio = precio;
-    }
-
-    public TipoPlan getTipoPlan() {
-        return tipoPlan;
-    }
-
-    public void setTipoPlan(TipoPlan tipoPlan) {
-        this.tipoPlan = tipoPlan;
+    public void setCosto(int costo) {
+        this.costo = costo;
     }
 }
