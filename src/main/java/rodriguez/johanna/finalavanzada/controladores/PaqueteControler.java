@@ -79,6 +79,8 @@ public class PaqueteControler {
 
         paqueteService.crearPaquete(paqueteToCreate);
 
+        //total= planService.encontrarPlanPorId();
+
         return "redirect:/paquete/";
     }
 
