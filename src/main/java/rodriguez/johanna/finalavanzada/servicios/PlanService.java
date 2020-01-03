@@ -13,33 +13,25 @@ import java.util.List;
 @Service
 public class PlanService {
 
-    @Autowired
-    private PlanRepositorio planRepo;
+    final PlanRepositorio planRepository;
 
+    public PlanService(PlanRepositorio planRepository) {
+        this.planRepository = planRepository;
+    }
 
-    @Transactional
     public void crearPlan(Plan plan){
-
-        planRepo.save(plan);
+        planRepository.save(plan);
     }
 
-
-    public List<Plan> listarPlanes(){
-
-        return planRepo.findAll();
+    public long cantidadPlanes(){
+        return planRepository.count();
     }
 
-
-    public Plan encontrarPlanPorId(long id){
-
-        return planRepo.findPlanById(id);
+    public List<Plan> planList(){
+        return planRepository.findAll();
     }
 
-
-    public void eliminarPlan(long id){
-
-        Plan planToDelete = planRepo.findPlanById(id);
-
-        planRepo.delete(planToDelete);
+    public Plan planPorId(Long id){
+        return planRepository.findById(id).orElse(null);
     }
 }
