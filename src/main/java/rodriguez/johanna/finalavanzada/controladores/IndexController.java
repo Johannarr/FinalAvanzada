@@ -10,6 +10,7 @@ import java.security.Principal;
 
 @Controller
 public class IndexController {
+
     @Autowired
     private SeguridadService seguridadService;
 
@@ -21,7 +22,7 @@ public class IndexController {
 
         seguridadService.crearUsuarioAdmin();
 
-        model.addAttribute("titulo", "MULTIMEDIA CXA");
+        model.addAttribute("titulo", "E&J CXA");
 
         //Aqui redirecciono hacia cliente, realiza la creacion pero es invisibl al usuario
         return "redirect:/usuario/";

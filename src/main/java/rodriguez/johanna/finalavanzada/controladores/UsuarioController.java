@@ -70,7 +70,7 @@ public class UsuarioController {
         return "redirect:/usuario/";
     }
 
-        @RequestMapping("/")
+    @RequestMapping("/")
     public String index(Model model, Principal principal, Locale locale){
 
         model.addAttribute("titulo", "MULTIMEDIA CXA");

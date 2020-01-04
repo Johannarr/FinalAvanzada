@@ -16,6 +16,7 @@ import java.security.Principal;
 import java.util.Locale;
 
 @Controller
+@RequestMapping("/cliente")
 public class ClienteController {
 
     @Autowired

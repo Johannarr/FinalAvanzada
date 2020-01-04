@@ -24,7 +24,6 @@ dependencies {
     //SendGrid Transaction Mail
     compile 'com.sendgrid:sendgrid-java:4.0.1'
 
-
     //Trabajando con FreeMarker...
     compile('org.springframework.boot:spring-boot-starter-freemarker')
 
