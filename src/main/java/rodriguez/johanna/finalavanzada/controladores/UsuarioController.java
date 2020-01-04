@@ -9,9 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import rodriguez.johanna.finalavanzada.entidades.Rol;
-import rodriguez.johanna.finalavanzada.entidades.Usuario;
+import rodriguez.johanna.finalavanzada.entidades.*;
 import rodriguez.johanna.finalavanzada.servicios.ClienteService;
+import rodriguez.johanna.finalavanzada.servicios.EmpleadoService;
 import rodriguez.johanna.finalavanzada.servicios.PlanService;
 import rodriguez.johanna.finalavanzada.servicios.UsuarioService;
 
@@ -30,12 +30,45 @@ public class UsuarioController {
     private ClienteService clienteService;
 
     @Autowired
+    private EmpleadoService empleadoService;
+
+    @Autowired
     private PlanService planService;
 
     @Autowired
     private MessageSource messageSource;
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+
+    @RequestMapping("/default")
+    public String defaultCreate(Model model){
+
+        //Creacion de cliente por defecto
+        Cliente clientePorDefecto = new Cliente("Johanna","Rodriguez","054-2223334","Calle 10","809-578-9669","yohannar.r@hotmail.com");
+        Cliente clientePorDefecto2 = new Cliente("Edgar","Nunez","402-3334445","Calle 9","809-577-8989","edgar@gmail.com");
+        clienteService.crearCliente(clientePorDefecto);
+        clienteService.crearCliente(clientePorDefecto2);
+
+        //Creacion de empleados por defecto
+        Empleado empleadoPorDefecto = new Empleado("Pedro","Lopez","2020","Calle 10","809-578-9525","pedro@hotmail.com");
+        Empleado empleadoPorDefecto2 = new Empleado("Juana","Nunez","2120","Calle 9","809-577-8565","juana@gmail.com");
+        empleadoService.crearEmpleado(empleadoPorDefecto);
+        empleadoService.crearEmpleado(empleadoPorDefecto2);
+
+        //Creacion de planes por defecto
+        Plan plan1 = new Plan("Pre-Boda",1000);
+        Plan plan2 = new Plan("Boda",5000);
+        Plan plan3 = new Plan("Cumpleanos",3000);
+        Plan plan4 = new Plan("Video del evento",4000);
+        planService.crearPlan(plan1);
+        planService.crearPlan(plan2);
+        planService.crearPlan(plan3);
+        planService.crearPlan(plan4);
+
+
+        return "redirect:/usuario/";
+    }
 
         @RequestMapping("/")
     public String index(Model model, Principal principal, Locale locale){
