@@ -8,10 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import rodriguez.johanna.finalavanzada.entidades.Cliente;
-import rodriguez.johanna.finalavanzada.entidades.Compra;
-import rodriguez.johanna.finalavanzada.entidades.Empleado;
-import rodriguez.johanna.finalavanzada.entidades.Plan;
+import rodriguez.johanna.finalavanzada.entidades.*;
 import rodriguez.johanna.finalavanzada.servicios.ClienteService;
 import rodriguez.johanna.finalavanzada.servicios.CompraService;
 import rodriguez.johanna.finalavanzada.servicios.EmpleadoService;
@@ -93,7 +90,7 @@ public class CompraController {
     }
 
     @RequestMapping(value = "/crear", method = RequestMethod.POST)
-    public String crearCompra( @RequestParam(name = "idPlanes" , required = false) List<Long> idPlanes, @RequestParam(name = "idCliente") long idCliente, @RequestParam(name = "idEmpleado") long idEmpleado,  @RequestParam(name = "fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam(name = "fechaEvento") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaEvento, @RequestParam(name = "total", required = false)  int total, @RequestParam(name = "estado")  String estado) {
+    public String crearCompra( @RequestParam(name = "idPlanes" , required = false) List<Long> idPlanes, @RequestParam(name = "idCliente") long idCliente, @RequestParam(name = "idEmpleado") long idEmpleado,  @RequestParam(name = "fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam(name = "fechaEvento") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaEvento, @RequestParam(name = "total", required = false)  int total, @RequestParam(name = "estado") Estado estado) {
 
         List<Plan> listaPlanes = new ArrayList<>();
 
@@ -107,6 +104,12 @@ public class CompraController {
         Calendar calendarEvento = Calendar.getInstance();
         calendarEvento.setTime(fechaEvento);
 
+        for (Long planesId:idPlanes){
+
+            Plan planCompra = planService.encontrarPlanPorId(planesId);
+
+            total+= planCompra.getCosto();
+        }
 
         Compra compraToCreate = new Compra(listaPlanes,cliente,empleadoAsignado,fecha,fechaEvento,total,estado);
 

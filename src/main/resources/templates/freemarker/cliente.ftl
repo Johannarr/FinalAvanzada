@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta charset="utf-8">
@@ -43,7 +42,7 @@
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>C</b>XA</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>MULTIMEDIA</b>CXA</span>
+            <span class="logo-lg"><b>E&J</b>CXA</span>
         </a>
 
         <!-- Header Navbar -->
@@ -73,6 +72,7 @@
 
                                 <p>
 
+                                    ${usuario}
                                     <!--Aqui agrego el nombre del usuario logueado -->
                                 </p>
                             </li>
@@ -152,11 +152,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1 class="text-center">
-
-                <strong>${listausuarioi18n}</strong>
+                <strong>${listaclientei18n}</strong>
             </h1>
-            <a class="btn btn-primary" href="/usuario/creacion" role="button">${agregarusuarioi18n}</a>
-            <a class="btn btn-success" href="/usuario/default" role="button">Default creator</a>
+
+            <a class="btn btn-primary" href="/cliente/creacion" role="button">${agregarclientei18n}</a>
+
+
         </section>
 
         <!-- Main content -->
@@ -171,22 +172,33 @@
                         <table class="table table-striped table-bordered table-condensed table-hover">
                             <thead>
 
-                            <th>${nombreusuarioi18n}</th>
-                            <th>${activousuarioi18n}</th>
+                            <th>${nombreclientei18n}</th>
+                            <th>${apellidoclientei18n}</th>
+                            <th>${cedulaclientei18n}</th>
+                            <th>${direccionclientei18n}</th>
+                            <th>${telefonoclientei18n}</th>
+                            <th>${fotoclientei18n}</th>
                             <th>${opcionei18n}</th>
                             </thead>
 
-                            <#list usuarios as usuario>
-
+                            <#list clientes as cliente>
                             <tr>
-                                <!-- Para los campos esAdmin y active es necesario poner un ?c para representar
-                                 estos campos en el index ya que estos campos son boolean y a la hora de presentarlos
-                                 da error, ?c lo que hace es transformar estos boolean a un String "true" y false
-                                 solo para ser presentados aqui-->
-                                <td>${usuario.username}</td>
-                                <td>${usuario.active?c}</td>
+
+                                <td>${cliente.nombre}</td>
+                                <td>${cliente.apellido}</td>
+                                <td>${cliente.cedula}</td>
+                                <td>${cliente.direccion}</td>
+                                <td>${cliente.telefono}</td>
+
+                                <!--Este es el path correcto para mostrar la foto, pero por alguna razon no la muestra -->
                                 <td>
-                                    <a href="/usuario/borrar/?id=${usuario.id}"  data-toggle="modal"> <i class="fa fa-trash" style="font-size:23px;color:red"></i> </a>
+                                    <img src="../../../../../uploads/${cliente.foto}" alt="${cliente.foto}" height="128px" width="128px">
+                                </td>
+
+                                <td>
+                                    <a href="/cliente/mostrar/?id=${cliente.id}">  <i class="fa fa-eye" style="font-size:25px"></i></a>
+                                    <a href="/cliente/edicion/?id=${cliente.id}">  <i class="fa fa-edit" style="font-size:25px"></i></a>
+                                    <a href="/cliente/borrar/?id=${cliente.id}"  data-toggle="modal"> <i class="fa fa-trash" style="font-size:23px;color:red"></i> </a>
                                 </td>
                             </tr>
                             </#list>
@@ -196,6 +208,7 @@
                 </div>
 
             </div>
+
 
         </section>
         <!-- /.content -->
@@ -210,7 +223,8 @@
     </footer>
 
     <!-- Control Sidebar -->
-     <!-- /.control-sidebar -->
+
+    <!-- /.control-sidebar -->
     <!-- Add the sidebar's background. This div must be placed
     immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>

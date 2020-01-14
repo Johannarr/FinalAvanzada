@@ -1,5 +1,11 @@
 <!DOCTYPE html>
+<!--Nota no se pueden copiar y pegar la misma plantilla para usarse, pues dara error, por lo tanto es necesario poner una plantilla
+ de base y que las demas hereden-->
 
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
 <html>
 <head>
     <meta charset="utf-8">
@@ -8,6 +14,9 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
+    <!-- Nota importante para agregar recursos. los recursos se guardan en la carpeta static y esta no es necesario que se mencione
+     cuando se esta agregando el link como se ve en el link de abajo no mencione static en ningun momento
+     por ultimo para indicar que saldremos de una carpeta para ir para atras esto se indica con ../ -->
     <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
@@ -43,7 +52,7 @@
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>C</b>XA</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>MULTIMEDIA</b>CXA</span>
+            <span class="logo-lg"><b>E&J</b>CXA</span>
         </a>
 
         <!-- Header Navbar -->
@@ -94,7 +103,6 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-
                                 </div>
                                 <div class="pull-right">
                                     <a href="/logout" class="btn btn-danger">Sign out</a>
@@ -152,11 +160,10 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1 class="text-center">
-
-                <strong>${listausuarioi18n}</strong>
+                <!--Aqui agregare el texto de la pagina -->
+                <strong>${listaalquileri18n}</strong>
             </h1>
-            <a class="btn btn-primary" href="/usuario/creacion" role="button">${agregarusuarioi18n}</a>
-            <a class="btn btn-success" href="/usuario/default" role="button">Default creator</a>
+            <a class="btn btn-primary" href="/alquiler/creacion" role="button">${agregaralquileri18n}</a>
         </section>
 
         <!-- Main content -->
@@ -171,24 +178,36 @@
                         <table class="table table-striped table-bordered table-condensed table-hover">
                             <thead>
 
-                            <th>${nombreusuarioi18n}</th>
-                            <th>${activousuarioi18n}</th>
+                            <th>${clientealquileri18n}</th>
+                            <th>${fechaalquileri18n}</th>
+                            <th>${fechaentregaalquileri18n}</th>
+                            <th>${totalalquileri18n}</th>
                             <th>${opcionei18n}</th>
                             </thead>
 
-                            <#list usuarios as usuario>
-
+                            <!--De esta forma se crea un foreach en freemarker -->
+                            <#list alquileres as alquiler >
                             <tr>
-                                <!-- Para los campos esAdmin y active es necesario poner un ?c para representar
-                                 estos campos en el index ya que estos campos son boolean y a la hora de presentarlos
-                                 da error, ?c lo que hace es transformar estos boolean a un String "true" y false
-                                 solo para ser presentados aqui-->
-                                <td>${usuario.username}</td>
-                                <td>${usuario.active?c}</td>
+
+                                <!-- Como ya tengo una relacion establecida con la clase cliente, puedo llamarlo de esta forma  -->
+                                <td>${alquiler.cliente.nombre}</td>
+
+                                <!-- Como equipos representraba una lista no es correcto mostrarse en el index ya que son varios elementos
+                                y en la cuadriculas del index normalmente solo se guarda 1 elemento-->
+
+
+                                <!--De esta forma puedo representar fechas en el index como texto -->
+                                <td>${alquiler.fecha?date}</td>
+                                <td>${alquiler.fechaEntrega?date}</td>
+
+
+                                <td>${alquiler.total}</td>
                                 <td>
-                                    <a href="/usuario/borrar/?id=${usuario.id}"  data-toggle="modal"> <i class="fa fa-trash" style="font-size:23px;color:red"></i> </a>
+                                    <a href="/alquiler/mostrar/?id=${alquiler.id}">  <i class="fa fa-eye" style="font-size:25px"></i></a>
+                                    <a href="/alquiler/borrar/?id=${alquiler.id}" data-toggle="modal"> <i class="fa fa-trash" style="font-size:23px;color:red"></i> </a>
                                 </td>
                             </tr>
+                            <!--Aqui cierro el foreach -->
                             </#list>
                         </table>
 
@@ -196,6 +215,7 @@
                 </div>
 
             </div>
+
 
         </section>
         <!-- /.content -->
@@ -210,6 +230,7 @@
     </footer>
 
     <!-- Control Sidebar -->
+
      <!-- /.control-sidebar -->
     <!-- Add the sidebar's background. This div must be placed
     immediately after the control sidebar -->

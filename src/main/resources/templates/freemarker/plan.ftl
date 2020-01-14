@@ -137,8 +137,7 @@
                 <!-- Optionally, you can add icons to the links -->
                 <li><a href="/cliente/"><i class="fa fa-users"></i> <span>Clientes</span></a></li>
                 <li><a href="/plan/"><i class="fa fa-users"></i> <span>Planes</span></a></li>
-                <li><a href="/paquete/"><i class="fa fa-desktop"></i> <span>Paquetes</span></a></li>
-                <li><a href="/facturacion/"><i class="fa fa-desktop"></i> <span>Facturacion</span></a></li>
+                <li><a href="/compra/"><i class="fa fa-desktop"></i> <span>Facturacion</span></a></li>
                 <li><a href="/empleado/"><i class="fa fa-desktop"></i> <span>Empleados</span></a></li>
                 <li><a href="/usuario/"><i class="fa fa-desktop"></i> <span>Usuarios</span></a></li>
 
