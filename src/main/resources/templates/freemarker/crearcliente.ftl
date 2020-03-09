@@ -92,18 +92,6 @@
 
             </div>
 
-
-            <div class="form-group">
-                <label for="file" class="control-label col-md-3">${fotoclientei18n}:</label>
-
-                <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
-                    <input type="file" name="files" class="form-control" required placeholder="Foto del cliente...">
-                </div>
-
-            </div>
-
-
-
             <div class="form-group">
                 <button class="btn btn-primary col-md-offset-5" type="submit">${botonguardari18n}</button>
                 <a class="btn btn-danger" href="/cliente/" role="button">${botoncancelari18n}</a>
