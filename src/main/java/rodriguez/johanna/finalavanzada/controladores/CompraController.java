@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import rodriguez.johanna.finalavanzada.entidades.*;
-import rodriguez.johanna.finalavanzada.servicios.ClienteService;
-import rodriguez.johanna.finalavanzada.servicios.CompraService;
-import rodriguez.johanna.finalavanzada.servicios.EmpleadoService;
-import rodriguez.johanna.finalavanzada.servicios.PlanService;
+import rodriguez.johanna.finalavanzada.servicios.*;
 
 import java.security.Principal;
 import java.util.*;
@@ -20,6 +17,9 @@ import java.util.*;
 @Controller
 @RequestMapping("/compra")
 public class CompraController {
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @Autowired
     private CompraService compraService;
@@ -64,7 +64,7 @@ public class CompraController {
 
         model.addAttribute("usuario", principal.getName());
 
-        return "/freemarker/compra";
+        return "/freemarker/compraprueba";
     }
 
 
@@ -88,11 +88,37 @@ public class CompraController {
 
         return "/freemarker/crearcompra";
     }
+    @RequestMapping("/prueba")
+    public String pruebaCompra(Model model,Principal principal, Locale locale) {
+
+        model.addAttribute("agregarcomprai18n", messageSource.getMessage("agregarcomprai18n", null, locale));
+        model.addAttribute("clientecomprai18n", messageSource.getMessage("clientecomprai18n", null, locale));
+        model.addAttribute("empleadocomprai18n", messageSource.getMessage("empleadocomprai18n", null, locale));
+        model.addAttribute("plancomprai18n", messageSource.getMessage("plancomprai18n", null, locale));
+        model.addAttribute("fechai18n", messageSource.getMessage("fechai18n", null, locale));
+        model.addAttribute("fechaeventoi18n", messageSource.getMessage("fechaeventoi18n", null, locale));
+        model.addAttribute("botonguardari18n", messageSource.getMessage("botonguardari18n", null, locale));
+        model.addAttribute("botoncancelari18n", messageSource.getMessage("botoncancelari18n", null, locale));
+        model.addAttribute("titulo", "E&J CXA");
+        model.addAttribute("usuarios", usuarioService.listarUsuarios());
+
+        model.addAttribute("usuario", principal.getName());
+        // Para poder crear un alquiler debo mandarle a la vista crearalquiler todos los equipos y clientes ya creados
+        model.addAttribute("clientes", clienteService.listarClientes());
+        model.addAttribute("planes", planService.listarPlanes());
+        model.addAttribute("empleados", empleadoService.listarEmpleados());
+
+        return "/freemarker/compraprueba";
+    }
 
     @RequestMapping(value = "/crear", method = RequestMethod.POST)
-    public String crearCompra( @RequestParam(name = "idPlanes" , required = false) List<Long> idPlanes, @RequestParam(name = "idCliente") long idCliente, @RequestParam(name = "idEmpleado") long idEmpleado,  @RequestParam(name = "fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam(name = "fechaEvento") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaEvento, @RequestParam(name = "total", required = false)  int total, @RequestParam(name = "estado") Estado estado) {
-
-        List<Plan> listaPlanes = new ArrayList<>();
+        public String crearCompra( @RequestParam(name = "idPlanes" , required = false) List<Long> idPlanes) {
+//        @RequestParam(name = "idCliente") long idCliente,  @RequestParam(name = "idEmpleado") long idEmpleado,  @RequestParam(name = "fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam(name = "fechaEvento") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaEvento, @RequestParam(name = "total", required = false)  int total, @RequestParam(name = "estado") Estado estado
+        System.out.println("Probando si entra");
+        System.out.println(idPlanes);
+//        System.out.println(idEmpleado);
+//        System.out.println(fechaEvento);
+     /*   List<Plan> listaPlanes = new ArrayList<>();
 
         Cliente cliente = clienteService.encontrarClientePorId(idCliente);
 
@@ -114,8 +140,8 @@ public class CompraController {
         Compra compraToCreate = new Compra(listaPlanes,cliente,empleadoAsignado,fecha,fechaEvento,total,estado);
 
         compraService.crearCompra(compraToCreate);
-
-        return "redirect:/compra/";
+*/
+        return "redirect:/compra/prueba";
     }
 
 

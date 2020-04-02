@@ -1,0 +1,8 @@
+<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+        <select name="plan" class="form-control" id="plan" required>
+            <#list planes as plan >
+                <option value="${plan.nombre}">${plan.nombre}</option>
+            </#list>
+        </select>
+        <input name="cantidad" type="number" placeholder="Cantidad" <#if formulario??> value="${cantidad}" </#if>/> <br/>
+    </div>

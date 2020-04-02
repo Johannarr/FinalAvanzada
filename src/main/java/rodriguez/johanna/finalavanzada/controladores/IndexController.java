@@ -18,9 +18,7 @@ public class IndexController {
     @RequestMapping("/")
     public String index(Model model, Principal principal ){
 
-        //Creando usuario administrador es la primera url de entrada
 
-        seguridadService.crearUsuarioAdmin();
 
         model.addAttribute("titulo", "E&J CXA");
 

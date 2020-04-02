@@ -136,7 +136,7 @@
                 <!-- Optionally, you can add icons to the links -->
                 <li><a href="/cliente/"><i class="fa fa-users"></i> <span>Clientes</span></a></li>
                 <li><a href="/plan/"><i class="fa fa-users"></i> <span>Planes</span></a></li>
-                <li><a href="/compra/prueba"><i class="fa fa-desktop"></i> <span>Facturacion</span></a></li>
+                <li><a href="/compra/"><i class="fa fa-desktop"></i> <span>Facturacion</span></a></li>
                 <li><a href="/empleado/"><i class="fa fa-desktop"></i> <span>Empleados</span></a></li>
                 <li><a href="/usuario/"><i class="fa fa-desktop"></i> <span>Usuarios</span></a></li>
 
@@ -153,10 +153,10 @@
         <section class="content-header">
             <h1 class="text-center">
 
-                <strong>${listausuarioi18n}</strong>
+                <strong>Compra Paquetes</strong>
             </h1>
-            <a class="btn btn-primary" href="/usuario/creacion" role="button">${agregarusuarioi18n}</a>
-            <a class="btn btn-success" href="/usuario/default" role="button">Default creator</a>
+<#--            <a class="btn btn-primary" href="/usuario/creacion" role="button">${agregarusuarioi18n}</a>-->
+<#--            <a class="btn btn-success" href="/usuario/default" role="button">Default creator</a>-->
         </section>
 
         <!-- Main content -->
@@ -168,29 +168,59 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-condensed table-hover">
-                            <thead>
+                        <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+                            <table class="table">
+                                <form method="post" action="/compra/crear/">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Planes</th>
+                                    <th scope="col">Costo</th>
+                                    <th scope="col">Realizar Pedido</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <#list planes as plan>
+                                    <tr>
+                                        <th scope="row" value="${plan.id}">${plan.nombre}</th>
+                                        <td value="${plan.costo}">${plan.costo}</td>
+                                        <td><button class="btnContact" onclick="">Comprar</button></td>
+                                    </tr>
+                                </#list>
+                                </tbody>
+                            </table>
+                            <select name="empleado" class="form-control" id="plan" required>
+                                <label>Fotografo</label>
+                                <#list empleados as empleado >
+                                    <option value="${empleado.nombre}">${empleado.nombre}</option>
+                                </#list>
+                            </select>
+                            <label>Fecha del Evento</label>
+                            <input name="fechaevento" type="date" placeholder="Fecha" <#if formulario??> value="${fechaeventoi18n}" </#if>/> <br/>
+                        </div>
+                        </form>
+<#--                        <table class="table table-striped table-bordered table-condensed table-hover">-->
+<#--                            <thead>-->
 
-                            <th>${nombreusuarioi18n}</th>
-                            <th>${activousuarioi18n}</th>
-                            <th>${opcionei18n}</th>
-                            </thead>
+<#--                            <th>${nombreusuarioi18n}</th>-->
+<#--                            <th>${activousuarioi18n}</th>-->
+<#--                            <th>${opcionei18n}</th>-->
+<#--                            </thead>-->
 
-                            <#list usuarios as usuario>
+<#--                            <#list usuarios as usuario>-->
 
-                            <tr>
-                                <!-- Para los campos esAdmin y active es necesario poner un ?c para representar
-                                 estos campos en el index ya que estos campos son boolean y a la hora de presentarlos
-                                 da error, ?c lo que hace es transformar estos boolean a un String "true" y false
-                                 solo para ser presentados aqui-->
-                                <td>${usuario.username}</td>
-                                <td>${usuario.active?c}</td>
-                                <td>
-                                    <a href="/usuario/borrar/?id=${usuario.id}"  data-toggle="modal"> <i class="fa fa-trash" style="font-size:23px;color:red"></i> </a>
-                                </td>
-                            </tr>
-                            </#list>
-                        </table>
+<#--                                <tr>-->
+<#--                                    <!-- Para los campos esAdmin y active es necesario poner un ?c para representar-->
+<#--                                     estos campos en el index ya que estos campos son boolean y a la hora de presentarlos-->
+<#--                                     da error, ?c lo que hace es transformar estos boolean a un String "true" y false-->
+<#--                                     solo para ser presentados aqui&ndash;&gt;-->
+<#--                                    <td>${usuario.username}</td>-->
+<#--                                    <td>${usuario.active?c}</td>-->
+<#--                                    <td>-->
+<#--                                        <a href="/usuario/borrar/?id=${usuario.id}"  data-toggle="modal"> <i class="fa fa-trash" style="font-size:23px;color:red"></i> </a>-->
+<#--                                    </td>-->
+<#--                                </tr>-->
+<#--                            </#list>-->
+<#--                        </table>-->
 
                     </div>
                 </div>
@@ -210,7 +240,7 @@
     </footer>
 
     <!-- Control Sidebar -->
-     <!-- /.control-sidebar -->
+    <!-- /.control-sidebar -->
     <!-- Add the sidebar's background. This div must be placed
     immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>

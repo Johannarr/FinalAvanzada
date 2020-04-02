@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import rodriguez.johanna.finalavanzada.entidades.Empleado;
+import rodriguez.johanna.finalavanzada.entidades.Plan;
 import rodriguez.johanna.finalavanzada.entidades.Rol;
 import rodriguez.johanna.finalavanzada.entidades.Usuario;
 import rodriguez.johanna.finalavanzada.repositorios.RolRepositorio;
@@ -27,9 +30,47 @@ public class SeguridadService implements UserDetailsService {
     @Autowired
     private RolRepositorio rolRepositorio;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @Autowired
+    private ClienteService clienteService;
+
+    @Autowired
+    private EmpleadoService empleadoService;
+
+    @Autowired
+    private PlanService planService;
+
     //Para encriptar la información
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+
+    @Transactional
+    public void defaultCreate(){
+
+      /*  //Creacion de cliente por defecto
+        Cliente clientePorDefecto = new Cliente("Johanna","Rodriguez","054-2223334","Calle 10","809-578-9669","yohannar.r@hotmail.com");
+        Cliente clientePorDefecto2 = new Cliente("Edgar","Nunez","402-3334445","Calle 9","809-577-8989","edgar@gmail.com");
+        clienteService.crearCliente(clientePorDefecto);
+        clienteService.crearCliente(clientePorDefecto2);*/
+
+        //Creacion de empleados por defecto
+        Empleado empleadoPorDefecto = new Empleado("Pedro","Lopez","2020","Calle 10","809-578-9525","pedro@hotmail.com");
+        Empleado empleadoPorDefecto2 = new Empleado("Juana","Nunez","2120","Calle 9","809-577-8565","juana@gmail.com");
+        empleadoService.crearEmpleado(empleadoPorDefecto);
+        empleadoService.crearEmpleado(empleadoPorDefecto2);
+
+        //Creacion de planes por defecto
+        Plan plan1 = new Plan("Pre-Boda",1000);
+        Plan plan2 = new Plan("Boda",5000);
+        Plan plan3 = new Plan("Cumpleanos",3000);
+        Plan plan4 = new Plan("Video del evento",4000);
+        planService.crearPlan(plan1);
+        planService.crearPlan(plan2);
+        planService.crearPlan(plan3);
+        planService.crearPlan(plan4);
+    }
 
     @Transactional
     public void crearUsuarioAdmin(){

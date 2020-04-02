@@ -41,14 +41,14 @@ public class UsuarioController {
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
-    @RequestMapping("/default")
+  /*  @RequestMapping("/default")
     public String defaultCreate(Model model){
 
-        //Creacion de cliente por defecto
+      *//*  //Creacion de cliente por defecto
         Cliente clientePorDefecto = new Cliente("Johanna","Rodriguez","054-2223334","Calle 10","809-578-9669","yohannar.r@hotmail.com");
         Cliente clientePorDefecto2 = new Cliente("Edgar","Nunez","402-3334445","Calle 9","809-577-8989","edgar@gmail.com");
         clienteService.crearCliente(clientePorDefecto);
-        clienteService.crearCliente(clientePorDefecto2);
+        clienteService.crearCliente(clientePorDefecto2);*//*
 
         //Creacion de empleados por defecto
         Empleado empleadoPorDefecto = new Empleado("Pedro","Lopez","2020","Calle 10","809-578-9525","pedro@hotmail.com");
@@ -68,7 +68,7 @@ public class UsuarioController {
 
 
         return "redirect:/usuario/";
-    }
+    }*/
 
     @RequestMapping("/")
     public String index(Model model, Principal principal, Locale locale){

@@ -33,7 +33,7 @@
     </section>
 
 
-    <form method="post" class="form-horizontal" action="/usuario/crear/">
+    <form method="post" class="form-horizontal" action="/crear/">
         <div class="row">
 
             <div class="form-group">

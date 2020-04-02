@@ -37,8 +37,26 @@
 
 <!--El enctype es lo unico necesario para hacer funcionar la subida de imagenes, ademas de que debemos de especificar
  el input de foto como file-->
-    <form method="post" class="form-horizontal" action="/cliente/crear/" enctype="multipart/form-data">
+    <form method="post" class="form-horizontal" action="registrar/crear/cliente" enctype="multipart/form-data">
         <div class="row">
+
+            <div class="form-group">
+                <label for="username" class="control-label col-md-3">${nombreusuarioi18n}:</label>
+
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+                    <input type="text" name="username" class="form-control" placeholder="Usuario...">
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="control-label col-md-3">${passwordusuarioi18n}:</label>
+
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+                    <input type="text" name="password" class="form-control" placeholder="Password...">
+                </div>
+
+            </div>
 
             <div class="form-group">
                 <label for="nombre" class="control-label col-md-3">${nombreclientei18n}:</label>
@@ -92,17 +110,22 @@
 
             </div>
 
-
             <div class="form-group">
-                <label for="file" class="control-label col-md-3">${fotoclientei18n}:</label>
+                <label for="correo" class="control-label col-md-3">${correoclientei18n}:</label>
 
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
-                    <input type="file" name="files" class="form-control" required placeholder="Foto del cliente...">
+                    <input type="text" name="correo" class="form-control" placeholder="Correo...">
                 </div>
 
             </div>
 
-
+     <#--       <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+                <select name="idRoles" class="form-control" id="idRoles" required>
+                    <#list roles as rol >
+                        <option value="${rol.id}">${rol.role}</option>
+                    </#list>
+                </select>
+            </div>-->
 
             <div class="form-group">
                 <button class="btn btn-primary col-md-offset-5" type="submit">${botonguardari18n}</button>

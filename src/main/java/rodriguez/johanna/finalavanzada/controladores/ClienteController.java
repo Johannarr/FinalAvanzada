@@ -9,15 +9,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import rodriguez.johanna.finalavanzada.entidades.Cliente;
+import rodriguez.johanna.finalavanzada.entidades.Rol;
+import rodriguez.johanna.finalavanzada.entidades.Usuario;
 import rodriguez.johanna.finalavanzada.servicios.ClienteService;
 import rodriguez.johanna.finalavanzada.servicios.CompraService;
+import rodriguez.johanna.finalavanzada.servicios.UsuarioService;
 
 import java.security.Principal;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Locale;
 
 @Controller
 @RequestMapping("/cliente")
 public class ClienteController {
+    @Autowired
+    private UsuarioService usuarioService;
 
     @Autowired
     private ClienteService clienteService;
@@ -167,4 +174,5 @@ public class ClienteController {
 
         return "redirect:/cliente/";
     }
+
 }

@@ -23,6 +23,7 @@
         </div>
 
         <input class="btn" type="submit" value="Log in">
+        <a href="/registrar/cliente">Registrar</a>
 
     </div>
 
