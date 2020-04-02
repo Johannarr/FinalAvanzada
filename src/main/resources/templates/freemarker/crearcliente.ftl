@@ -110,6 +110,7 @@
 
             </div>
 
+<<<<<<< HEAD
             <div class="form-group">
                 <label for="correo" class="control-label col-md-3">${correoclientei18n}:</label>
 
@@ -127,6 +128,8 @@
                 </select>
             </div>-->
 
+=======
+>>>>>>> da897adc198fa35f5e83184fdd3468d8be3dcec2
             <div class="form-group">
                 <button class="btn btn-primary col-md-offset-5" type="submit">${botonguardari18n}</button>
                 <a class="btn btn-danger" href="/cliente/" role="button">${botoncancelari18n}</a>
