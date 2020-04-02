@@ -177,7 +177,6 @@
                             <th>${cedulaclientei18n}</th>
                             <th>${direccionclientei18n}</th>
                             <th>${telefonoclientei18n}</th>
-                            <th>${fotoclientei18n}</th>
                             <th>${opcionei18n}</th>
                             </thead>
 
