@@ -1,9 +1,8 @@
 package rodriguez.johanna.finalavanzada.entidades;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 public class Cliente implements Serializable {
@@ -90,5 +89,4 @@ public class Cliente implements Serializable {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-
 }

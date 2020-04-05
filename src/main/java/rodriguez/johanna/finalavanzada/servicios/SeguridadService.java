@@ -90,6 +90,7 @@ public class SeguridadService implements UserDetailsService {
         usuarioAdmin.setUsername("admin");
         usuarioAdmin.setActive(true);
         usuarioAdmin.setRoles(new HashSet<>(Arrays.asList(rolAdmin)));
+        usuarioAdmin.setCorreo("admin@example.com");
 
         // creo la passwrod, pero tambien la encripto con el password encoder
         usuarioAdmin.setPassword(passwordEncoder.encode("123456"));

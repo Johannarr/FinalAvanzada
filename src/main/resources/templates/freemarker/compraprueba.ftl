@@ -155,8 +155,8 @@
 
                 <strong>Compra Paquetes</strong>
             </h1>
-<#--            <a class="btn btn-primary" href="/usuario/creacion" role="button">${agregarusuarioi18n}</a>-->
-<#--            <a class="btn btn-success" href="/usuario/default" role="button">Default creator</a>-->
+            <#--            <a class="btn btn-primary" href="/usuario/creacion" role="button">${agregarusuarioi18n}</a>-->
+            <#--            <a class="btn btn-success" href="/usuario/default" role="button">Default creator</a>-->
         </section>
 
         <!-- Main content -->
@@ -170,12 +170,12 @@
                     <div class="table-responsive">
                         <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
                             <table class="table">
-                                <form method="post" action="/compra/crear/">
+                                <#--                                <form method="post" action="/compra/crear/">-->
                                 <thead>
                                 <tr>
                                     <th scope="col">Planes</th>
                                     <th scope="col">Costo</th>
-                                    <th scope="col">Realizar Pedido</th>
+                                    <th scope="col">Seleccionar Pedido</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -183,46 +183,55 @@
                                     <tr>
                                         <th scope="row" value="${plan.id}">${plan.nombre}</th>
                                         <td value="${plan.costo}">${plan.costo}</td>
-                                        <td><button class="btnContact" onclick="">Comprar</button></td>
+                                        <td style="text-align: center">
+                                            <input class="seleccionPlan" id="${plan.id}" type="checkbox"/>
+                                        </td>
                                     </tr>
                                 </#list>
                                 </tbody>
                             </table>
-                            <select name="empleado" class="form-control" id="plan" required>
-                                <label>Fotografo</label>
-                                <#list empleados as empleado >
-                                    <option value="${empleado.nombre}">${empleado.nombre}</option>
-                                </#list>
-                            </select>
-                            <label>Fecha del Evento</label>
-                            <input name="fechaevento" type="date" placeholder="Fecha" <#if formulario??> value="${fechaeventoi18n}" </#if>/> <br/>
+
                         </div>
-                        </form>
-<#--                        <table class="table table-striped table-bordered table-condensed table-hover">-->
-<#--                            <thead>-->
 
-<#--                            <th>${nombreusuarioi18n}</th>-->
-<#--                            <th>${activousuarioi18n}</th>-->
-<#--                            <th>${opcionei18n}</th>-->
-<#--                            </thead>-->
+                        <#--                        <table class="table table-striped table-bordered table-condensed table-hover">-->
+                        <#--                            <thead>-->
 
-<#--                            <#list usuarios as usuario>-->
+                        <#--                            <th>${nombreusuarioi18n}</th>-->
+                        <#--                            <th>${activousuarioi18n}</th>-->
+                        <#--                            <th>${opcionei18n}</th>-->
+                        <#--                            </thead>-->
 
-<#--                                <tr>-->
-<#--                                    <!-- Para los campos esAdmin y active es necesario poner un ?c para representar-->
-<#--                                     estos campos en el index ya que estos campos son boolean y a la hora de presentarlos-->
-<#--                                     da error, ?c lo que hace es transformar estos boolean a un String "true" y false-->
-<#--                                     solo para ser presentados aqui&ndash;&gt;-->
-<#--                                    <td>${usuario.username}</td>-->
-<#--                                    <td>${usuario.active?c}</td>-->
-<#--                                    <td>-->
-<#--                                        <a href="/usuario/borrar/?id=${usuario.id}"  data-toggle="modal"> <i class="fa fa-trash" style="font-size:23px;color:red"></i> </a>-->
-<#--                                    </td>-->
-<#--                                </tr>-->
-<#--                            </#list>-->
-<#--                        </table>-->
+                        <#--                            <#list usuarios as usuario>-->
+
+                        <#--                                <tr>-->
+                        <#--                                    <!-- Para los campos esAdmin y active es necesario poner un ?c para representar-->
+                        <#--                                     estos campos en el index ya que estos campos son boolean y a la hora de presentarlos-->
+                        <#--                                     da error, ?c lo que hace es transformar estos boolean a un String "true" y false-->
+                        <#--                                     solo para ser presentados aqui&ndash;&gt;-->
+                        <#--                                    <td>${usuario.username}</td>-->
+                        <#--                                    <td>${usuario.active?c}</td>-->
+                        <#--                                    <td>-->
+                        <#--                                        <a href="/usuario/borrar/?id=${usuario.id}"  data-toggle="modal"> <i class="fa fa-trash" style="font-size:23px;color:red"></i> </a>-->
+                        <#--                                    </td>-->
+                        <#--                                </tr>-->
+                        <#--                            </#list>-->
+                        <#--                        </table>-->
 
                     </div>
+
+                    <label for="plan">Fotografo</label>
+                    <select name="empleado" class="form-control" id="plan" required>
+                        <#list empleados as empleado >
+                            <option value="${empleado.id}">${empleado.nombre}</option>
+                        </#list>
+                    </select>
+                    <label>Fecha Actual</label>
+                    <input name="fecha" type="date" id="fecha" required
+                           placeholder="Fecha" <#if formulario??> value="${fechaeventoi18n}" </#if>/> <br/>
+                    <label>Fecha del Evento</label>
+                    <input name="fechaevento" type="date" id="fechaevento" required
+                           placeholder="Fecha" <#if formulario??> value="${fechaeventoi18n}" </#if>/> <br/>
+                    <button class="btn btn-success" onclick="guardar()">Guardar</button>
                 </div>
 
             </div>
@@ -256,6 +265,52 @@
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.min.js"></script>
 
+<script>
+    var a = "10";
+    var newtotal = parseInt(a);
+    let plan = [];
+    $(document).ready(function () {
+
+        console.log('ready');
+
+        //    seleccionPlan
+        $('.seleccionPlan').click(function () {
+            let seleccion = $(this);
+
+            // $('.seleccionPlan').not(this).prop('checked', false);
+            let id = seleccion.attr('id');
+            if (seleccion.prop("checked") === true) {
+                plan.push(id);
+
+            } else {
+                plan.splice(plan.indexOf(id), 1);
+
+            }
+
+            console.log({'plan': plan});
+
+        });
+
+
+    });
+
+    function guardar() {
+
+        let idEmpleado = $('#plan').children("option:selected").val();
+        let fechaevento = $('#fechaevento').val();
+        let fecha = $('#fecha').val();
+        let usuarioactual = $('#usuario').val();
+
+        let request = new XMLHttpRequest();
+
+        request.open('POST', '/compra/crear?idPlanes=' + plan +'&idUsuario='+ usuarioactual + '&idEmpleado=' + idEmpleado + '&fechaEvento=' + fechaevento + '&fecha=' + fecha + '&total=' + newtotal, true);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        request.send();
+
+    }
+
+
+</script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->

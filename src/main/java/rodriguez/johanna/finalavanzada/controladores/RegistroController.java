@@ -59,7 +59,7 @@ public class RegistroController {
     @RequestMapping(method = RequestMethod.POST, value = "registrar/crear/cliente")
     public String crearusuario (@RequestParam(name = "username") String username, @RequestParam(name = "password") String password,@RequestParam(name = "nombre")String nombre, @RequestParam(name = "apellido")String apellido, @RequestParam(name = "cedula")String cedula, @RequestParam(name = "telefono")String telefono, @RequestParam(name = "direccion")String direccion,@RequestParam(name = "correo")String correo)throws IOException {
         /*@RequestParam(name = "idRoles") long idRoles*/
-
+        
         Cliente cliente = new Cliente(nombre,apellido,cedula,direccion,telefono,correo);
         // Mando el id para que me busque el rol creado
         Rol rolCreated = usuarioService.encontrarRolPorId(1);
@@ -72,7 +72,7 @@ public class RegistroController {
 
         // Encritando password
         usuarioToCreate.setPassword(passwordEncoder.encode(password));
-
+        usuarioToCreate.setCorreo(correo);
         usuarioToCreate.setActive(true);
         usuarioService.crearUsuario(usuarioToCreate);
         // Inserto usuario

@@ -89,10 +89,10 @@ public class ClienteController {
     public String crearCliente(@RequestParam(name = "nombre") String nombre, @RequestParam(name = "apellido") String apellido, @RequestParam(name = "cedula") String cedula, @RequestParam(name = "direccion") String direccion, @RequestParam(name = "telefono") String telefono, @RequestParam(name="correo") String correo){
 
         // Agregando los parametros al cliente, no es necesario agregar el parametro id ya que se autogenerara cuando especificamos la entidad
-        Cliente cliente = new Cliente(nombre,apellido,cedula,direccion,telefono,correo);
+     //   Cliente cliente = new Cliente(nombre,apellido,cedula,direccion,telefono,correo,);
 
         // Insertando cliente
-        clienteService.crearCliente(cliente);
+       // clienteService.crearCliente(cliente);
 
         return "redirect:/cliente/";
     }

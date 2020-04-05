@@ -3,6 +3,10 @@ package rodriguez.johanna.finalavanzada.controladores;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import rodriguez.johanna.finalavanzada.entidades.*;
 import rodriguez.johanna.finalavanzada.servicios.*;
+import sun.plugin.liveconnect.SecurityContextHelper;
 
 import java.security.Principal;
 import java.util.*;
@@ -112,12 +117,18 @@ public class CompraController {
     }
 
     @RequestMapping(value = "/crear", method = RequestMethod.POST)
-        public String crearCompra( @RequestParam(name = "idPlanes" , required = false) List<Long> idPlanes) {
-//        @RequestParam(name = "idCliente") long idCliente,  @RequestParam(name = "idEmpleado") long idEmpleado,  @RequestParam(name = "fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam(name = "fechaEvento") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaEvento, @RequestParam(name = "total", required = false)  int total, @RequestParam(name = "estado") Estado estado
+    public String crearCompra(@AuthenticationPrincipal UserDetails userdetails, @RequestParam(name = "idUsuario") Long idCliente, @RequestParam(name = "idPlanes", required = false) List<Long> idPlanes, @RequestParam(name = "idEmpleado") Long idEmpleado,
+                              @RequestParam(name = "fechaEvento") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaEvento, @RequestParam(name = "fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam(name = "total", required = false) int total) {
+//       @RequestParam(name = "estado") Estado estado
         System.out.println("Probando si entra");
         System.out.println(idPlanes);
-//        System.out.println(idEmpleado);
-//        System.out.println(fechaEvento);
+        System.out.println(idEmpleado);
+        System.out.println(fechaEvento);
+        System.out.println("Fecha actual: " + fecha);
+        System.out.println(total);
+        System.out.println("Cliente: "+idCliente);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        
      /*   List<Plan> listaPlanes = new ArrayList<>();
 
         Cliente cliente = clienteService.encontrarClientePorId(idCliente);

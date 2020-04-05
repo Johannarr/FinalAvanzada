@@ -17,19 +17,20 @@ public class Usuario {
     private String username;
     private String password;
     private boolean active;
+    private String correo;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private
     Set<Rol> roles;
 
-
     public Usuario(){ }
 
-    public Usuario(String username, String password, boolean active, Set<Rol> roles) {
+    public Usuario(String username, String password, boolean active,String correo, Set<Rol> roles) {
         this.username = username;
         this.password = password;
         this.active = active;
         this.roles = roles;
+        this.correo = correo;
     }
 
 
@@ -65,6 +66,14 @@ public class Usuario {
         this.active = active;
     }
 
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
     public Set<Rol> getRoles() {
         return roles;
     }
@@ -72,6 +81,7 @@ public class Usuario {
     public void setRoles(Set<Rol> roles) {
         this.roles = roles;
     }
+
 
 
 }
