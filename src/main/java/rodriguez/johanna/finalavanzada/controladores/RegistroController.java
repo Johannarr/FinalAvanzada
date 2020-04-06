@@ -1,5 +1,6 @@
 package rodriguez.johanna.finalavanzada.controladores;
 
+import com.sendgrid.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -77,8 +78,34 @@ public class RegistroController {
         usuarioService.crearUsuario(usuarioToCreate);
         // Inserto usuario
         clienteService.crearCliente(cliente);
+        CreatedMail(correo,username,nombre);
 
 
         return "redirect:/usuario/";
+    }
+    public void CreatedMail(@RequestParam(name = "correo") String correo,@RequestParam(name = "username") String username,@RequestParam(name = "nombre")String nombre) throws IOException {
+
+        Email from = new Email("example.marketing@ejmultimedia.com");
+        Email to = new Email(correo); // use your own email address here
+
+        String subject = "Welcome To E&J MULTIMEDIA CXA";
+        Content content = new Content("text/html",
+                "<html> <body> <p><h1>Bienvenido a la Multimedia E&J</h1></p> <p>Señor(ar)" + nombre + " su usuario es:<b> " + username + "</b>.</p>" + " <p>Queremos indicarle que ya su cuenta ha sido habilitada para poder realizar compras.</p>");
+
+
+        Mail mail = new Mail(from, subject, to, content);
+        System.out.println(mail);
+        SendGrid sg = new SendGrid (Cambiar Aqui);
+        Request request = new Request();
+
+        request.setMethod(Method.POST);
+        request.setEndpoint("mail/send");
+        request.setBody(mail.build());
+
+        Response response = sg.api(request);
+
+        System.out.println(response.getStatusCode());
+        System.out.println(response.getHeaders());
+        System.out.println(response.getBody());
     }
 }

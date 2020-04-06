@@ -16,7 +16,7 @@ public class Compra implements Serializable {
         private List<Plan> planes;
 
         @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-        private Cliente cliente;
+        private Usuario usuario;
 
         @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
         private Empleado empleado;
@@ -34,9 +34,9 @@ public class Compra implements Serializable {
         public Compra() {
         }
 
-        public Compra(List<Plan> planes, Cliente cliente, Empleado empleado, Date fecha, Date fechaEvento, int total,  Estado estado) {
+        public Compra(List<Plan> planes, Usuario usuario, Empleado empleado, Date fecha, Date fechaEvento, int total,  Estado estado) {
             this.planes = planes;
-            this.cliente = cliente;
+            this.usuario = usuario;
             this.empleado = empleado;
             this.fecha = fecha;
             this.fechaEvento = fechaEvento;
@@ -61,13 +61,9 @@ public class Compra implements Serializable {
         this.planes = planes;
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
+    public Usuario getUsuario() { return usuario; }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 
     public Empleado getEmpleado() {
         return empleado;

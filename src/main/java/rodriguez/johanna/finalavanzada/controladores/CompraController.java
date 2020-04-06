@@ -1,5 +1,6 @@
 package rodriguez.johanna.finalavanzada.controladores;
 
+import com.sendgrid.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import rodriguez.johanna.finalavanzada.entidades.*;
 import rodriguez.johanna.finalavanzada.servicios.*;
-import sun.plugin.liveconnect.SecurityContextHelper;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.*;
 
@@ -117,8 +118,8 @@ public class CompraController {
     }
 
     @RequestMapping(value = "/crear", method = RequestMethod.POST)
-    public String crearCompra(@AuthenticationPrincipal UserDetails userdetails, @RequestParam(name = "idUsuario") Long idCliente, @RequestParam(name = "idPlanes", required = false) List<Long> idPlanes, @RequestParam(name = "idEmpleado") Long idEmpleado,
-                              @RequestParam(name = "fechaEvento") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaEvento, @RequestParam(name = "fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam(name = "total", required = false) int total) {
+    public String crearCompra(@AuthenticationPrincipal UserDetails userdetails, @RequestParam(name = "idPlanes", required = false) List<Long> idPlanes, @RequestParam(name = "idEmpleado") Long idEmpleado,
+                              @RequestParam(name = "fechaEvento") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaEvento, @RequestParam(name = "fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam(name = "total", required = false) int total) throws IOException {
 //       @RequestParam(name = "estado") Estado estado
         System.out.println("Probando si entra");
         System.out.println(idPlanes);
@@ -126,14 +127,15 @@ public class CompraController {
         System.out.println(fechaEvento);
         System.out.println("Fecha actual: " + fecha);
         System.out.println(total);
-        System.out.println("Cliente: "+idCliente);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        
-     /*   List<Plan> listaPlanes = new ArrayList<>();
+        UserDetails userDetail = (UserDetails) auth.getPrincipal();
+        Usuario usuario = usuarioService.encontrarUsuarioPorUsername(userDetail.getUsername());
+        System.out.println("usuario id: " + usuario.getId() + " " + usuario.getUsername());
+        List<Plan> listaPlanes = new ArrayList<>();
 
-        Cliente cliente = clienteService.encontrarClientePorId(idCliente);
+     //   Cliente cliente = clienteService.encontrarClientePorId(idCliente);
 
-        Empleado empleadoAsignado = empleadoService.encontrarEmpleadoPorId(idEmpleado);
+       Empleado empleadoAsignado = empleadoService.encontrarEmpleadoPorId(idEmpleado);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fecha);
@@ -141,6 +143,7 @@ public class CompraController {
         Calendar calendarEvento = Calendar.getInstance();
         calendarEvento.setTime(fechaEvento);
 
+        Estado estado = Estado.ENPROCESO;
         for (Long planesId:idPlanes){
 
             Plan planCompra = planService.encontrarPlanPorId(planesId);
@@ -148,10 +151,11 @@ public class CompraController {
             total+= planCompra.getCosto();
         }
 
-        Compra compraToCreate = new Compra(listaPlanes,cliente,empleadoAsignado,fecha,fechaEvento,total,estado);
-
+        Compra compraToCreate = new Compra(listaPlanes,usuario,empleadoAsignado,fecha,fechaEvento,total,estado);
+        String correo = usuario.getCorreo().toString();
+        String empleado = empleadoAsignado.getNombre();
         compraService.crearCompra(compraToCreate);
-*/
+        CreatedMail(correo,listaPlanes,total,empleado,fechaEvento,estado);
         return "redirect:/compra/prueba";
     }
 
@@ -180,6 +184,30 @@ public class CompraController {
 
         return "/freemarker/mostrarcompras";
 
+    }
+    public void CreatedMail(String correo,List<Plan> planes, int total, String empleado, Date fechaEvento, Estado estado) throws IOException {
+
+        Email from = new Email("departmentoforders@ejmultimedia.com");
+        Email to = new Email(correo); // use your own email address here
+
+        String subject = "Orden Realizada";
+        Content content = new Content("text/html", "<p><h2>Su compra ha sido realizada de manera exitosa.</h2></p> <p>El detalle de su orden: " + planes + "</p>"+ " <p>Su total es de: "+ total + "</p>"+ "<p>Fotografo: <b>" + empleado + "</b> es elegido para su evento, día: " + fechaEvento +"</p>"+ "<p>Les informamo el estado actual de su orden es: " + estado +"</p>");
+
+
+        Mail mail = new Mail(from, subject, to, content);
+        System.out.println(mail);
+        SendGrid sg = new SendGrid (Cambiar Aqui);
+        Request request = new Request();
+
+        request.setMethod(Method.POST);
+        request.setEndpoint("mail/send");
+        request.setBody(mail.build());
+
+        Response response = sg.api(request);
+
+        System.out.println(response.getStatusCode());
+        System.out.println(response.getHeaders());
+        System.out.println(response.getBody());
     }
 }
 

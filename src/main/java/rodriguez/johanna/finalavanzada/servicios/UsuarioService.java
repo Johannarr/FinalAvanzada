@@ -67,4 +67,9 @@ public class UsuarioService {
 
         return rolRepo.findRolById(id);
     }
+
+    public Usuario encontrarUsuarioPorCorreo(String correo){
+
+        return usuarioRepo.findByCorreo(correo);
+    }
 }
